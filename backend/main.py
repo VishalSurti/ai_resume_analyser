@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File, Form
 
 app = FastAPI(
     title="AI Resume Analyzer API",
@@ -13,3 +13,14 @@ def home():
 @app.get("/health")
 def health_check():
     return {"status": "healthy"}
+
+@app.post("/analyze_resume")
+async def analyze_resume(
+    resume: UploadFile = File(...),
+    job_description: str = Form(...)
+):
+    return {
+        "resume_filename": resume.filename,
+        "content_type": resume.content_type,
+        "job_description": job_description
+    }
