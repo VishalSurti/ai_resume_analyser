@@ -21,8 +21,6 @@ def extract_text_from_bytes(data: bytes) -> str:
 		pages_text.append(text)
     
 	# Join pages with double newlines to preserve basic separation
-	#combined = "\n\n".join(p.strip() for p in pages_text if p.strip())
-	#return combined
 	cleaned_pages=[]
 	for p in pages_text:
 		cleaned = p.strip()
