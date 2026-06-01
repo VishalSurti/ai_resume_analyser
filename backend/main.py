@@ -1,5 +1,5 @@
 from fastapi import FastAPI, UploadFile, File, Form
-
+from services.ai_services import GeminiService
 from services.pdf_parser import extract_text_from_uploadfile
 
 
@@ -27,10 +27,13 @@ async def analyze_resume(
 ):
     """Accept an uploaded PDF resume, extract text, and return combined text."""
     resume_text = await extract_text_from_uploadfile(resume)
+    ai_service = GeminiService()
+    analysis = ai_service.analyze_resume(resume_text, job_description)
 
     return {
         "resume_filename": resume.filename,
-        "content_type": resume.content_type,
-        "job_description": job_description,
-        "resume_text": resume_text,
+        "analysis": analysis,
+        #"content_type": resume.content_type,
+        #"job_description": job_description,
+        #"resume_text": resume_text,
     }
