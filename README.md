@@ -94,7 +94,7 @@ uvicorn backend.main:app --reload
 
 Open frontend/index.html
 
-```markdown
+
 ## API Endpoint
 
 POST /analyze
