@@ -6,6 +6,8 @@ form.addEventListener("submit", async function(event) {
     const resumeFile = document.getElementById("resumeFile").files[0];
     const jobDescription = document.getElementById("jobDescription").value;
     const loading = document.getElementById("loading");
+    const analyzeButton = document.getElementById("analyzeButton");
+    const results = document.getElementById("results");
 
     const formData = new FormData();
     formData.append("resume", resumeFile);
@@ -15,18 +17,37 @@ form.addEventListener("submit", async function(event) {
 loading.hidden = false;
 
 try{
+
+    analyzeButton.disabled = true;
+    analyzeButton.textContent = "Analyzing...";
+    results.innerHTML = "";
+    results.hidden = true;
+    results.innerHTML = "";
+
     const response = await fetch("http://127.0.0.1:8000/analyze", {
     method: "POST",
     body: formData
 });
 
 const data = await response.json();
-const results = document.getElementById("results");
+
+if (!response.ok) {
+        throw new Error(data.detail || "Analysis failed. Please try again.");
+    }
 
 results.innerHTML = `
   <h2>Analysis Result</h2>
-  <p><strong>Overall Score:</strong> ${data.overall_score}/100</p>
-  <p><strong>ATS Score:</strong> ${data.ats_score}/100</p>
+  <div class="score-container">
+    <div class="score-card">
+        <h3>Overall Score</h3>
+        <p>${data.overall_score}/100</p>
+    </div>
+
+    <div class="score-card">
+        <h3>ATS Score</h3>
+        <p>${data.ats_score}/100</p>
+    </div>
+</div>
   <h3>Job Match Summary</h3>
   <p>${data.job_match_summary}</p>
   ${renderList("Strengths", data.strengths)}
@@ -37,8 +58,19 @@ results.innerHTML = `
   ${renderList("Project Suggestions", data.project_suggestions)}
 `;
 
+results.hidden = false;
+
 }
-finally{    loading.hidden = true;
+catch (error) {
+    results.innerHTML = `
+        <p class="error">${error.message}</p>
+    `;
+    results.hidden = false;
+} 
+finally{    
+    loading.hidden = true;
+    analyzeButton.disabled = false;
+    analyzeButton.textContent = "Analyze Resume";
 }
 
 });

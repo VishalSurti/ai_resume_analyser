@@ -13,7 +13,7 @@
     <h1>Welcome to the AI Resume Analyzer</h1>
 
     <form id="resumeForm">
-        <section id="results"></section>
+        <section id="results" hidden></section>
         <label for="resumeFile">Upload your resume (PDF):</label>
         <input type="file" id="resumeFile" accept="application/pdf" required>
 
@@ -24,7 +24,7 @@
 
         <br><br>
 
-        <button type="submit">Analyze Resume</button>
+        <button id="analyzeButton" type="submit">Analyze Resume</button>
 
     </form>
 
