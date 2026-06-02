@@ -37,7 +37,7 @@ The application extracts text from uploaded PDF resumes, compares the content wi
 - VS Code
 
 ## Project Structure
-
+```text
 ai_resume_analyzer/
 │
 ├── backend/
@@ -56,36 +56,45 @@ ai_resume_analyzer/
 │
 ├── requirements.txt
 └── README.md
+```
+
 
 ## Installation
 
 ### Clone Repository
 
-In Bash
+```bash
 git clone <your-github-url>
 cd ai_resume_analyzer
+```
 
 ### Create virtual Enviornment
+```bash
 python -m venv venv
 source venv/bin/activate (For MacOS)
 venv\Scripts\activate (For Windows)
 
 pip install -r requirements.txt
-
+```
 
 ## Environment Variables
 
 Create a '.env' file inside the backend directory and add:
 
+```env
 GEMINI_API_KEY=your_api_key_here
+```
 
 ## Running the Application
 
 Start FastAPI:
+```bash
 uvicorn backend.main:app --reload
+```
 
 Open frontend/index.html
 
+```markdown
 ## API Endpoint
 
 POST /analyze
