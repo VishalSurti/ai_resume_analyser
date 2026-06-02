@@ -17,6 +17,7 @@ The application extracts text from uploaded PDF resumes, compares the content wi
 - Responsive frontend interface
 - Error handling and validation
 
+
 ## Tech Stack
 
 ### Backend
@@ -68,7 +69,7 @@ git clone <your-github-url>
 cd ai_resume_analyzer
 ```
 
-### Create virtual Enviornment
+### Create Virtual Environment
 ```bash
 python -m venv venv
 source venv/bin/activate (For MacOS)
@@ -123,3 +124,12 @@ Output:
 - User authentication
 - Download analysis as PDF
 - Cloud deployment
+
+## Key Learnings
+
+- Built a REST API using FastAPI
+- Integrated Google's Gemini AI API
+- Implemented PDF parsing and text extraction
+- Applied Pydantic for response validation
+- Developed a dynamic frontend using HTML, CSS, and JavaScript
+- Implemented asynchronous request handling and error management
