@@ -3,7 +3,7 @@ from services.ai_services import GeminiService
 from services.pdf_parser import extract_text_from_uploadfile
 from models.response_models import AnalysisResponse
 from fastapi import HTTPException
-
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     title="AI Resume Analyzer API",
@@ -11,6 +11,13 @@ app = FastAPI(
     version="1.0.0"
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], 
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/")
 def home():
@@ -37,7 +44,7 @@ async def analyze_resume(
         raise HTTPException(status_code=400, detail="The uploaded PDF appears to be empty or contains no extractable text.")
 
     ai_service = GeminiService()
-    
+
     try:
         analysis = ai_service.analyze_resume(resume_text, job_description)
     except Exception as e:
